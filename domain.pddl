@@ -23,7 +23,26 @@
         ; One predicate given for free!
         (hero-at ?loc - location)
 
-        ; IMPLEMENT ME
+        ; if a corridor is messy
+        (is_messy ?cor - corridor)
+
+        ; key uses remaining
+        (has_uses ?key - key)
+        (has_2_uses ?key - key)
+        (has_1_use ?key - key)
+        
+        ; treasure location
+        (treasure_at ?loc - location)
+
+        ; if heros hand is free
+        (hand_free)
+
+        ; keys colour
+        (is_red ?key - key)
+        (is_yellow ?key - key)
+        (is_green ?key - key)
+        (is_purple ?key - key)
+        (is_rainbow ?key - key)
 
     )
 
@@ -40,9 +59,7 @@
         :parameters (?from ?to - location ?cor - corridor)
 
         :precondition (and
-
             ; IMPLEMENT ME
-
         )
 
         :effect (and
