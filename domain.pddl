@@ -23,6 +23,21 @@
         ; One predicate given for free!
         (hero-at ?loc - location)
 
+        ; key location
+        (key-at ?k - key ?loc - location)
+
+        ; if hero is holding a key 
+        (holding ?k - key)
+
+        ; corridor lock status and colour
+        (locked ?cor - corridor ?col - colour)
+
+        ; corridor connection predicate
+        (corridor ?cor - corridor ?loc1 - location ?loc2 - location)
+
+        ; if a corridor is risky
+        (is_risky ?cor - corridor)
+
         ; if a corridor is messy
         (is_messy ?cor - corridor)
 
