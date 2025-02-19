@@ -38,8 +38,8 @@
         ; if a corridor is risky
         (is_risky ?cor - corridor)
 
-        ; if a corridor is messy
-        (is_messy ?cor - corridor)
+        ; if a location is messy
+        (is_messy ?loc - location)
 
         ; key uses remaining
         (has_uses ?key - key)
@@ -74,12 +74,29 @@
         :parameters (?from ?to - location ?cor - corridor)
 
         :precondition (and
-            ; IMPLEMENT ME
+            
+            ; hero is at current location
+            (hero-at ?from)
+            ; corridor exists
+            (corridor ?cor ?from ?to)
+
+            ; corridor is unlocked
+            (not (locked ?cor yellow))
+            (not (locked ?cor red))
+            (not (locked ?cor green))
+            (not (locked ?cor rainbow))
+            (not (locked ?cor purple))
         )
 
         :effect (and
+            
+            ; move the hero
+            (not (hero-at ?from))
+            (hero-at ?to)
 
-            ; IMPLEMENT ME
+            ; if corridor is risky collapse + make messy
+            (when (is_risky ?cor) (not (corridor ?cor ?from ?to)))
+            (when (is_risky ?cor) (is_messy ?to))
 
         )
     )
@@ -96,13 +113,24 @@
 
         :precondition (and
 
-            ; IMPLEMENT ME
+            ; hero is at location
+            (hero-at ?loc)
+            ; key is at location
+            (key-at ?k ?loc)
+            ; hero's hands are free
+            (hand_free)
+            ; location is not messy
+            (not (is_messy ?loc))
 
         )
 
         :effect (and
 
-            ; IMPLEMENT ME
+            ; holding the key
+            (holding ?k)
+            (not (hand_free))
+            ; remove key from location
+            (not (key-at ?k ?loc))
 
         )
     )
@@ -117,13 +145,20 @@
 
         :precondition (and
 
-            ; IMPLEMENT ME
+            ; hero holding a key
+            (holding ?k)
+            ; hero at location
+            (hero-at ?loc)
 
         )
 
         :effect (and
 
-            ; IMPLEMENT ME
+            ; not holding key
+            (not (holding ?k))
+            (hand_free)
+            ; put key in location
+            (key-at ?k ?loc)
 
         )
     )
