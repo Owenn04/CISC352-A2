@@ -5,6 +5,7 @@
         :negative-preconditions
         :conditional-effects
         :equality
+        :disjunctive-preconditions  
     )
 
     ; Do not modify the types
@@ -178,13 +179,39 @@
 
         :precondition (and
 
-            ; IMPLEMENT ME
+            ; hero is at location
+            (hero-at ?loc)
+            ; corridor is locked with colour
+            (locked ?cor ?col)
+            ; corridor is connected to location the hero is at regardless of direction
+            (exists (?loc2 - location) 
+                (or 
+                    (corridor ?cor ?loc ?loc2)
+                    (corridor ?cor ?loc2 ?loc) 
+                )
+            )
+            ; hero is holding a key
+            (holding ?k)
+
+            ; key is the correct colour
+            (or (and (is_red ?k) (=?col red))
+                (and (is_yellow ?k) (=?col yellow))
+                (and (is_green ?k) (=?col green))
+                (and (is_purple ?k) (=?col purple))
+                (and (is_rainbow ?k) (=?col rainbow)))
+
+            ; key has uses left
+            (or (has_uses ?k) (has_2_uses ?k) (has_1_use ?k))
 
         )
 
         :effect (and
 
-            ; IMPLEMENT ME
+            ; unlock the corridor
+            (not (locked ?cor ?col))
+            ; update key usage
+            (when (has_1_use ?k) (and (not (has_1_use ?k)) (not (has_uses ?k))))
+            (when (has_2_uses ?k) (and (not (has_2_uses ?k)) (has_1_use ?k)))
 
         )
     )
@@ -199,13 +226,18 @@
 
         :precondition (and
 
-            ; IMPLEMENT ME
+            ; hero is at location
+            (hero-at ?loc)
+
+            ; location is messy
+            (is_messy ?loc)
 
         )
 
         :effect (and
 
-            ; IMPLEMENT ME
+            ; location is no longer messy
+            (not (is_messy?loc))
 
         )
     )
