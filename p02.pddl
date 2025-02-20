@@ -18,20 +18,44 @@
 
     ; Locationg <> Corridor Connections
       (connection c2122 loc-2-1 loc-2-2)
+      (connection c2122 loc-2-2 loc-2-1)
+      ; location has corridors
+      (loc_cor loc-2-1 c2122)
+      (loc_cor loc-2-2 c2122)
+
       (connection c1222 loc-1-2 loc-2-2)
+      (connection c1222 loc-2-2 loc-1-2)
+      ; location has corridors
+      (loc_cor loc-1-2 c1222)
+      (loc_cor loc-2-2 c1222)
+
       (connection c2232 loc-2-2 loc-3-2)
+      (connection c2232 loc-3-2 loc-2-2)
+      ; location has corridors
+      (loc_cor loc-2-2 c2232)
+      (loc_cor loc-3-2 c2232)
+
       (connection c3242 loc-3-2 loc-4-2)
+      (connection c3242 loc-4-2 loc-3-2)
+      ; location has corridors
+      (loc_cor loc-3-2 c3242)
+      (loc_cor loc-4-2 c3242)
+
       (connection c2223 loc-2-2 loc-2-3)
+      (connection c2223 loc-2-3 loc-2-2)
+      ; location has corridors
+      (loc_cor loc-2-2 c2223)
+      (loc_cor loc-2-3 c2223)
 
     ; Key locations
-      (key-at key1 loc-1-2) ; green
-      (key-at key2 loc-2-1) ; rainbow
+      (key-at key1 loc-2-1) ; green
+      (key-at key2 loc-1-2) ; rainbow
       (key-at key3 loc-2-2) ; purple
       (key-at key4 loc-2-3) ; yellow
 
     ; Locked corridors
-      (locked c2122 yellow)
-      (locked c1222 purple)
+      (locked c2122 purple)
+      (locked c1222 yellow)
       (locked c2232 yellow)
       (locked c3242 rainbow)
       (locked c2223 green)
@@ -39,16 +63,23 @@
     ; Risky corridors
 
     ; Key colours
-      (is_green key1)
-      (is_rainbow key2)
-      (is_purple key3)
-      (is_yellow key4)
+      (key_is key1 green)
+      (key_is key2 rainbow)
+      (key_is key3 purple)
+      (key_is key4 yellow)
 
     ; Key usage properties (one use, two use, etc)
       (has_1_use key1)
+      (has_uses key1)
+      
       (has_1_use key2)
+      (has_uses key2)
+      
       (has_1_use key3)
+      (has_uses key3)
+      
       (has_2_uses key4)
+      (has_uses key4)
 
   )
   (:goal

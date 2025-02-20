@@ -34,6 +34,9 @@
 
         ; corridor connection predicate
         (connection ?cor - corridor ?loc1 - location ?loc2 - location)
+        
+        ; if location has corridor
+        (loc_cor ?loc - location ?cor - corridor)
 
         ; if a corridor is risky
         (is_risky ?cor - corridor)
@@ -53,11 +56,8 @@
         (hand_free)
 
         ; keys colour
-        (is_red ?key - key)
-        (is_yellow ?key - key)
-        (is_green ?key - key)
-        (is_purple ?key - key)
-        (is_rainbow ?key - key)
+        (key_is ?key - key ?col - colour)
+
 
     )
 
@@ -96,6 +96,7 @@
 
             ; if corridor is risky collapse + make messy
             (when (is_risky ?cor) (not (connection ?cor ?from ?to)))
+            (when (is_risky ?cor) (not (connection ?cor ?to ?from)))
             (when (is_risky ?cor) (is_messy ?to))
 
         )
@@ -172,6 +173,7 @@
     ;    - the hero is at location ?loc
     ;    - the corridor is connected to the location ?loc
     ;Effect will be that the corridor is unlocked and the key usage will be updated if necessary
+    
     (:action unlock
 
         :parameters (?loc - location ?cor - corridor ?col - colour ?k - key)
@@ -188,26 +190,20 @@
             (holding ?k)
         
             ; key color matching
-            (and 
-                (not (and (is_red ?k) (not (= ?col red))))
-                (not (and (is_yellow ?k) (not (= ?col yellow))))
-                (not (and (is_green ?k) (not (= ?col green))))
-                (not (and (is_purple ?k) (not (= ?col purple))))
-                (not (and (is_rainbow ?k) (not (= ?col rainbow))))
-            )
+            (key_is ?k ?col)
+            ; (and 
+            ;     (not (and (is_red ?k) (not (= ?col red))))
+            ;     (not (and (is_yellow ?k) (not (= ?col yellow))))
+            ;     (not (and (is_green ?k) (not (= ?col green))))
+            ;     (not (and (is_purple ?k) (not (= ?col purple))))
+            ;     (not (and (is_rainbow ?k) (not (= ?col rainbow))))
+            ; )
         
             ; key has uses
-            (not (and 
-                (not (has_uses ?k))
-                (not (has_2_uses ?k))
-                (not (has_1_use ?k))
-            ))
+            (has_uses ?k)
         
             ; corridor is connected to location hero is at
-            (not (and 
-                (not (connection ?cor ?loc ?loc))
-                (not (connection ?cor ?loc ?loc))
-            ))
+            (loc_cor ?loc ?cor)
 
         )
 
