@@ -187,7 +187,7 @@
             ; hero is holding the key
             (holding ?k)
         
-            ; key color matching using direct predicates
+            ; key color matching
             (and 
                 (not (and (is_red ?k) (not (= ?col red))))
                 (not (and (is_yellow ?k) (not (= ?col yellow))))
@@ -254,7 +254,7 @@
         :effect (and
 
             ; location is no longer messy
-            (not (is_messy?loc))
+            (not (is_messy ?loc))
 
         )
     )
