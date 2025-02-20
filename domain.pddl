@@ -5,7 +5,6 @@
         :negative-preconditions
         :conditional-effects
         :equality
-        :disjunctive-preconditions  
     )
 
     ; Do not modify the types
