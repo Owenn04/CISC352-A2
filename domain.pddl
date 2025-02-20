@@ -191,13 +191,6 @@
         
             ; key color matching
             (key_is ?k ?col)
-            ; (and 
-            ;     (not (and (is_red ?k) (not (= ?col red))))
-            ;     (not (and (is_yellow ?k) (not (= ?col yellow))))
-            ;     (not (and (is_green ?k) (not (= ?col green))))
-            ;     (not (and (is_purple ?k) (not (= ?col purple))))
-            ;     (not (and (is_rainbow ?k) (not (= ?col rainbow))))
-            ; )
         
             ; key has uses
             (has_uses ?k)
