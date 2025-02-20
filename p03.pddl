@@ -50,7 +50,7 @@
     (connection c2334 loc-2-3 loc-3-4)
     
     ; Key locations
-    (key-at key1 loc-1-2) ;red 
+    (key-at key1 loc-2-1) ;red 
     (key-at key2 loc-2-3) ;green
     (key-at key3 loc-2-3) ;green
     (key-at key4 loc-2-3) ;purple
