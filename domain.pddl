@@ -34,7 +34,7 @@
         (locked ?cor - corridor ?col - colour)
 
         ; corridor connection predicate
-        (corridor ?cor - corridor ?loc1 - location ?loc2 - location)
+        (connection ?cor - corridor ?loc1 - location ?loc2 - location)
 
         ; if a corridor is risky
         (is_risky ?cor - corridor)
@@ -79,7 +79,7 @@
             ; hero is at current location
             (hero-at ?from)
             ; corridor exists
-            (corridor ?cor ?from ?to)
+            (connection ?cor ?from ?to)
 
             ; corridor is unlocked
             (not (locked ?cor yellow))
@@ -96,7 +96,7 @@
             (hero-at ?to)
 
             ; if corridor is risky collapse + make messy
-            (when (is_risky ?cor) (not (corridor ?cor ?from ?to)))
+            (when (is_risky ?cor) (not (connection ?cor ?from ?to)))
             (when (is_risky ?cor) (is_messy ?to))
 
         )
@@ -181,27 +181,34 @@
 
             ; hero is at location
             (hero-at ?loc)
+        
             ; corridor is locked with colour
             (locked ?cor ?col)
-            ; corridor is connected to location the hero is at regardless of direction
-            (exists (?loc2 - location) 
-                (or 
-                    (corridor ?cor ?loc ?loc2)
-                    (corridor ?cor ?loc2 ?loc) 
-                )
-            )
-            ; hero is holding a key
+        
+            ; hero is holding the key
             (holding ?k)
-
-            ; key is the correct colour
-            (or (and (is_red ?k) (=?col red))
-                (and (is_yellow ?k) (=?col yellow))
-                (and (is_green ?k) (=?col green))
-                (and (is_purple ?k) (=?col purple))
-                (and (is_rainbow ?k) (=?col rainbow)))
-
-            ; key has uses left
-            (or (has_uses ?k) (has_2_uses ?k) (has_1_use ?k))
+        
+            ; key color matching using direct predicates
+            (and 
+                (not (and (is_red ?k) (not (= ?col red))))
+                (not (and (is_yellow ?k) (not (= ?col yellow))))
+                (not (and (is_green ?k) (not (= ?col green))))
+                (not (and (is_purple ?k) (not (= ?col purple))))
+                (not (and (is_rainbow ?k) (not (= ?col rainbow))))
+            )
+        
+            ; key has uses
+            (not (and 
+                (not (has_uses ?k))
+                (not (has_2_uses ?k))
+                (not (has_1_use ?k))
+            ))
+        
+            ; corridor is connected to location hero is at
+            (not (and 
+                (not (connection ?cor ?loc ?loc))
+                (not (connection ?cor ?loc ?loc))
+            ))
 
         )
 
@@ -209,9 +216,20 @@
 
             ; unlock the corridor
             (not (locked ?cor ?col))
+            
             ; update key usage
-            (when (has_1_use ?k) (and (not (has_1_use ?k)) (not (has_uses ?k))))
-            (when (has_2_uses ?k) (and (not (has_2_uses ?k)) (has_1_use ?k)))
+            (when (has_1_use ?k) 
+                (and 
+                    (not (has_1_use ?k))
+                    (not (has_uses ?k))
+                )
+            )
+            (when (has_2_uses ?k) 
+                (and 
+                    (not (has_2_uses ?k))
+                    (has_1_use ?k)
+                )
+            )
 
         )
     )

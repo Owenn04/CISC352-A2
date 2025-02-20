@@ -17,11 +17,11 @@
       (hand_free)
 
     ; Locationg <> Corridor Connections
-      (corridor c2122 loc-2-1 loc-2-2)
-      (corridor c1222 loc-1-2 loc-2-2)
-      (corridor c2232 loc-2-2 loc-3-2)
-      (corridor c3242 loc-3-2 loc-4-2)
-      (corridor c2223 loc-2-2 loc-2-3)
+      (connection c2122 loc-2-1 loc-2-2)
+      (connection c1222 loc-1-2 loc-2-2)
+      (connection c2232 loc-2-2 loc-3-2)
+      (connection c3242 loc-3-2 loc-4-2)
+      (connection c2223 loc-2-2 loc-2-3)
 
     ; Key locations
       (key-at key1 loc-1-2) ; green

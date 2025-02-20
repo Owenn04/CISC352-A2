@@ -19,21 +19,21 @@
     ; Locationg <> Corridor Connections
 
       ;row 2
-    (corridor c1222 loc-1-2 loc-2-2) 
-    (corridor c2232 loc-2-2 loc-3-2) 
-    (corridor c3242 loc-2-2 loc-3-2) 
+    (connection c1222 loc-1-2 loc-2-2) 
+    (connection c2232 loc-2-2 loc-3-2) 
+    (connection c3242 loc-2-2 loc-3-2) 
       ;row 3
-    (corridor c2333 loc-2-3 loc-3-3)
+    (connection c2333 loc-2-3 loc-3-3)
       ;row 4
-    (corridor c2434 loc-2-4 loc-3-4) 
-    (corridor c3444 loc-3-4 loc-4-4)
+    (connection c2434 loc-2-4 loc-3-4) 
+    (connection c3444 loc-3-4 loc-4-4)
       ;col 2
-    (corridor c2223 loc-2-2 loc-2-3)
-    (corridor c2324 loc-2-3 loc-2-4) 
+    (connection c2223 loc-2-2 loc-2-3)
+    (connection c2324 loc-2-3 loc-2-4) 
       ;col 3
-    (corridor c3132 loc-3-1 loc-3-2)
-    (corridor c3233 loc-3-2 loc-3-3)
-    (corridor c3334 loc-3-3 loc-3-4) 
+    (connection c3132 loc-3-1 loc-3-2)
+    (connection c3233 loc-3-2 loc-3-3)
+    (connection c3334 loc-3-3 loc-3-4) 
     
     ; Key locations
     (key-at key1 loc-2-2) ;red
